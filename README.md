@@ -47,7 +47,7 @@ Comparison of micro-inverters with rated output power between 350VA and 400VA:
 
 | Category | Requirement | Notes |
 |---|---:|---|
-| Grid | 230 V AC / 50 Hz | Designed for EU-style grids |
+| Grid | 220 V AC to 250V AC / 50 to 60 Hz   | Hardware not compatible with 110V grids |
 | Grid compliance | Grid-code compliant | Exact certification scope depends on country / standard |
 | Rated apparent power | 450 VA | Software-limited power cap supported |
 | Input DC operating range | 16 V – 58 V | PV module operating window |
@@ -82,6 +82,32 @@ The `firmware/src/main.cpp` file is the entry point for the uVerter firmware: it
 
 - Real-time control runs in `loop_critical_task()` at 100 µs to read sensors, enforce protections, regulate the boost stage, compute duty cycles, and update grid-sync variables.
 - Supervisory logic runs in `loop_application_task()` to manage modes (idle/startup/power/error), handle transitions, and expose telemetry through the user data API.
+
+### Compiling
+
+Micro-inverter uses [PlatformIO](https://platformio.org/) as it's build and dependency management system.
+
+#### From the command line
+
+1. Create and activate a Python virtual environment.
+
+        python3 -m venv .owntech-venv
+        source .owntech-venv/bin/activate
+
+2. Install PlatformIO.
+
+        pip3 install platformio
+
+3. Compile the code. Dependencies (including Zephyr and Owntech libraries) are downloaded automatically.
+
+        cd micro-inverter/firmware/
+        pio run
+
+#### In Visual Studio Code
+
+1. Install the "PlatformIO IDE" extension
+2. Open the `firmware` directory via PlatformIO's home screen (**not** with VSCode's File -> Open)
+3. Press the "Build" button in the PlatformIO toolbar (found on the bottom left)
 
 ## Contribute 
 
@@ -139,16 +165,42 @@ Safety improvements are contributions that protect everyone.
 
 ## Standards and directives
 
-### Application related standards
+### Relevant EU directives for CE
 
-- IEC 62109: Safety requirements for photovoltaic inverters.
-- IEC 61727: Requirements for photovoltaic (PV) systems to interface with the utility grid.
-- IEC 62116: Test procedure for islanding prevention measures for utility-interconnected photovoltaic inverters.
-- EN 50438: Requirements for the connection of micro-generators in parallel with public low-voltage distribution networks.
-- EN 50549: Requirements for generating plants to be connected in parallel with distribution networks (superseeds DIN VDE 0126)
+- Directive 2001/95/EC: General Product Safety
+- Directive 2014/30/EU: Electromagnetic Compatibility (EMC)
+- Directive 2014/35/EU: Low Voltage (LVD)
+- Directive 2014/53/EU: Radio Equipment (RED)
+- Directive 2011/65/EU: Restriction of the use of certain Hazardous Substances (RoHS)
+
+### Low Voltage Directive (LVD)
+
+**EN IEC 62109-1:2010**
+Safety of power converters for use in photovoltaic power systems - Part 1: General requirements
+
+**EN IEC 62109-2:2011**
+Safety of power converters for use in photovoltaic power systems - Part 2: Particular requirements for inverters
+
+### Electromagnetic Compatibility (EMC)
+
+**EN 62920:2017+A11+A1:2021**
+Photovoltaic power generating systems - EMC requirements and test methods for power conversion equipment
+
+**ETSI EN 301 489-1**
+ElectroMagnetic Compatibility (EMC) standard for radio equipment and services; Part 1: Common technical requirements
+
+**ETSI EN 301 489-17**
+ElectroMagnetic Compatibility (EMC) standard for radio equipment and services; Part 17: Specific conditions for Broadband Data Transmission Systems
+
+### Radio Equipment Directive (RED)
+
+**ETSI EN 300 328 V2.2.2**
+Wideband transmission systems; Data transmission equipment operating in the 2,4 GHz band; Harmonised Standard for access to radio spectrum
+
+### Grid Regulations
+
+As grid regulations are country specific, please refer to ![Grid regulations](Grid_regulations.md)
 
 ## Licence 
 
 This project is licenced under **CERN-OHL-V2-S** open source hardware licence. Licence file can be found under `License/cern-ohl-v2-s`. 
- 
-
