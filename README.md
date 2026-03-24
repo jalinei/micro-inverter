@@ -1,6 +1,9 @@
 # An open-source - community built micro-inverter
 
-![3D view](KiCAD_Files/renderings/3D.png)
+<p align="left">
+  <img src="Images/uverter_rbg.png" width="49%">
+  <img src="Images/uverter_back_rbg.png" width="49%">
+</p>
 
 ## Manifesto 
 
@@ -58,6 +61,8 @@ Comparison of micro-inverters with rated output power between 350VA and 400VA:
 | Connectivity | Wi-Fi | Local-first monitoring (no proprietary cloud required) |
 
 ## Renderings
+
+![3D view](KiCAD_Files/renderings/3D.png)
 
 ![Top view](KiCAD_Files/renderings/top_view.png)
 
